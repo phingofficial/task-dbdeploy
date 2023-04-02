@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,22 +18,21 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Ext;
+namespace Phing\Task\Ext\DbDeploy;
 
 /**
  * Utility class for generating necessary server-specific SQL commands
  *
- * @author  Luke Crouch at SourceForge (http://sourceforge.net)
+ * @author  Remy BREUILS
  * @package phing.tasks.ext.dbdeploy
  */
-abstract class DbmsSyntax
+class DbmsSyntaxPgSQL extends DbmsSyntax
 {
     /**
-     * @param $db
+     * @return string
      */
-    public function applyAttributes($db)
+    public function generateTimestamp()
     {
+        return "NOW()";
     }
-
-    abstract public function generateTimestamp();
 }

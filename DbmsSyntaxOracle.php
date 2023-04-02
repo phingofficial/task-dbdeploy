@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,9 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Ext;
+namespace Phing\Task\Ext\DbDeploy;
+
+use PDO;
 
 /**
  * Utility class for generating necessary server-specific SQL commands
@@ -25,13 +28,21 @@ namespace Phing\Task\Ext;
  * @author  Luke Crouch at SourceForge (http://sourceforge.net)
  * @package phing.tasks.ext.dbdeploy
  */
-class DbmsSyntaxMysql extends DbmsSyntax
+class DbmsSyntaxOracle extends DbmsSyntax
 {
+    /**
+     * @param $db
+     */
+    public function applyAttributes($db)
+    {
+        $db->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+    }
+
     /**
      * @return string
      */
     public function generateTimestamp()
     {
-        return "NOW()";
+        return "(sysdate - to_date('01-JAN-1970','DD-MON-YYYY')) * (86400)";
     }
 }

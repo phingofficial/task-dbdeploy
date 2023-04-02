@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Ext;
+namespace Phing\Task\Ext\DbDeploy;
 
 /**
  * Utility class for generating necessary server-specific SQL commands
@@ -25,13 +26,13 @@ namespace Phing\Task\Ext;
  * @author  Luke Crouch at SourceForge (http://sourceforge.net)
  * @package phing.tasks.ext.dbdeploy
  */
-class DbmsSyntaxMsSql extends DbmsSyntax
+class DbmsSyntaxSQLite extends DbmsSyntax
 {
     /**
      * @return string
      */
     public function generateTimestamp()
     {
-        return "DATEDIFF(s, '19700101', GETDATE())";
+        return "strftime('%s','now')";
     }
 }

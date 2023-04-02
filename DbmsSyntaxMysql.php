@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,45 +18,21 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Ext;
-
-use Exception;
+namespace Phing\Task\Ext\DbDeploy;
 
 /**
- * Factory for generating dbms-specific syntax-generating objects
+ * Utility class for generating necessary server-specific SQL commands
  *
  * @author  Luke Crouch at SourceForge (http://sourceforge.net)
  * @package phing.tasks.ext.dbdeploy
  */
-class DbmsSyntaxFactory
+class DbmsSyntaxMysql extends DbmsSyntax
 {
-    private $dbms;
-
     /**
-     * @param $dbms
+     * @return string
      */
-    public function __construct($dbms)
+    public function generateTimestamp()
     {
-        $this->dbms = $dbms;
-    }
-
-    public function getDbmsSyntax()
-    {
-        switch ($this->dbms) {
-            case ('sqlite'):
-                return new DbmsSyntaxSQLite();
-            case ('mysql'):
-                return new DbmsSyntaxMysql();
-            case 'odbc':
-            case ('mssql'):
-            case 'dblib':
-                return new DbmsSyntaxMsSql();
-            case ('pgsql'):
-                return new DbmsSyntaxPgSQL();
-            case 'oci':
-                return new DbmsSyntaxOracle();
-            default:
-                throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
-        }
+        return "NOW()";
     }
 }

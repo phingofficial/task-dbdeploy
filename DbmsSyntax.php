@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing\Task\Ext;
+namespace Phing\Task\Ext\DbDeploy;
 
 /**
  * Utility class for generating necessary server-specific SQL commands
@@ -25,13 +26,14 @@ namespace Phing\Task\Ext;
  * @author  Luke Crouch at SourceForge (http://sourceforge.net)
  * @package phing.tasks.ext.dbdeploy
  */
-class DbmsSyntaxSQLite extends DbmsSyntax
+abstract class DbmsSyntax
 {
     /**
-     * @return string
+     * @param $db
      */
-    public function generateTimestamp()
+    public function applyAttributes($db)
     {
-        return "strftime('%s','now')";
     }
+
+    abstract public function generateTimestamp();
 }
